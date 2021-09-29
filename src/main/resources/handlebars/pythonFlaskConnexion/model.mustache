@@ -60,7 +60,7 @@ class {{classname}}(Model):
         :return: The {{name}} of this {{classname}}.  # noqa: E501
         :rtype: {{classname}}
         """
-        return util.deserialize_model(dikt, cls){{#vars}}{{#@first}}
+        return util.deserialize_model(dikt, cls){{#vars}}{{#@first}} #type:ignore
 
 {{/@first}}
     @property
