@@ -64,7 +64,7 @@ class {{classname}}(Model):
 
 {{/@first}}
     @property
-    def {{name}}(self){{^supportPython2}} -> {{datatype}}{{/supportPython2}}:
+    def {{name}}(self){{^supportPython2}} ->{{^required}}Optional[{{/required}} {{datatype}} {{^required}}]{{/required}}{{/supportPython2}}:
         """Gets the {{name}} of this {{classname}}.
 
         {{#description}}
