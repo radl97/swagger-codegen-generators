@@ -74,6 +74,11 @@ class {{classname}}(Model):
         :return: The {{name}} of this {{classname}}.
         :rtype: {{datatype}}
         """
+{{#required}}
+        if self._{{name}} is None:
+            raise ValueError("Invalid value for `{{name}}`, must not be `None`")  # noqa: E501
+{{/required}}
+
         return self._{{name}}
 
     @{{name}}.setter
