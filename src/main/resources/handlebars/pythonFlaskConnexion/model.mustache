@@ -3,7 +3,7 @@
 from __future__ import absolute_import
 from datetime import date, datetime  # noqa: F401
 
-from typing import List, Dict  # noqa: F401
+from typing import List, Dict , Optional # noqa: F401
 
 from {{packageName}}.{{modelPackage}}.base_model_ import Model
 {{#imports}}{{import}}  # noqa: F401,E501
@@ -60,11 +60,11 @@ class {{classname}}(Model):
         :return: The {{name}} of this {{classname}}.  # noqa: E501
         :rtype: {{classname}}
         """
-        return util.deserialize_model(dikt, cls){{#vars}}{{#@first}}
+        return util.deserialize_model(dikt, cls){{#vars}}{{#@first}} #type:ignore
 
 {{/@first}}
     @property
-    def {{name}}(self){{^supportPython2}} -> {{datatype}}{{/supportPython2}}:
+    def {{name}}(self){{^supportPython2}} ->{{^required}}Optional[{{/required}} {{datatype}} {{^required}}]{{/required}}{{/supportPython2}}:
         """Gets the {{name}} of this {{classname}}.
 
         {{#description}}
@@ -74,6 +74,11 @@ class {{classname}}(Model):
         :return: The {{name}} of this {{classname}}.
         :rtype: {{datatype}}
         """
+{{#required}}
+        if self._{{name}} is None:
+            raise ValueError("Invalid value for `{{name}}`, must not be `None`")  # noqa: E501
+{{/required}}
+
         return self._{{name}}
 
     @{{name}}.setter
